@@ -14,7 +14,7 @@ permissions:
 
 jobs:
   static-analysis:
-    name: Lint Code
+    name: Static Analysis
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -29,4 +29,4 @@ jobs:
       - name: Run ESLint
         run: npm run lint
       - name: Check Types
-        run: npm check
+        run: npm run check
