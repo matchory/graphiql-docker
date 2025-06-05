@@ -1,0 +1,47 @@
+{
+    http_port 80
+    auto_https off
+
+    admin :2019 {
+    }
+
+    metrics
+
+    servers :80 {
+        name http
+    }
+
+    log {
+        output stderr
+        format json
+    }
+}
+
+http://localhost:2020 {
+    @healthcheck {
+        method GET
+        path /health
+        remote_ip 127.0.0.1
+    }
+
+    handle @healthcheck {
+        respond 204
+    }
+
+    abort
+}
+
+http:// {
+    root * /app/dist
+    file_server
+
+    handle_path /__/config.js {
+        header Content-Type application/javascript
+        header Cache-Control "private, no-cache, no-store, must-revalidate"
+        respond "window.GRAPHIQL_CONFIG = { graphqlEndpoint: '{env.GRAPHQL_ENDPOINT}' };"
+    }
+
+    handle {
+        try_files {path} /index.html
+    }
+}

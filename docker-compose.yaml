@@ -1,0 +1,30 @@
+services:
+  graphiql:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      GRAPHQL_ENDPOINT: "${GRAPHQL_ENDPOINT:-http://localhost:7200/graphql}"
+    volumes:
+      - type: bind
+        source: ./Caddyfile
+        target: /etc/caddy/Caddyfile
+    ports:
+      - host_ip: "127.0.0.1"
+        published: 9000
+        target: 80
+        protocol: tcp
+        app_protocol: http
+        name: "GraphiQL"
+      - host_ip: "127.0.0.1"
+        published: 2019
+        target: 2019
+        protocol: tcp
+        app_protocol: http
+        name: "Caddy"
+      - host_ip: "127.0.0.1"
+        published: 2020
+        target: 2020
+        protocol: tcp
+        app_protocol: http
+        name: "Caddy"
