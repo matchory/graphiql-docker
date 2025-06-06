@@ -12,14 +12,9 @@ RUN --mount=type=bind,source=package.json,target=package.json \
     --mount=type=cache,target=/root/.npm \
     npm ci --no-audit --no-fund --include=dev
 
-COPY --link \
-     --exclude=node_modules \
-     --exclude=dist \
-     --exclude=docker-compose.yaml \
-     --exclude=Dockerfile \
-     --exclude=Caddyfile \
-     --exclude=README.md \
-  . .
+COPY --link src ./src
+COPY --link public ./public
+COPY --link *.ts *.json index.html ./
 
 RUN --mount=type=cache,target=/root/.npm \
     npm run build
