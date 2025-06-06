@@ -34,7 +34,6 @@ http://localhost:2020 {
 http:// {
     root * /app/dist
     file_server
-    header Content-Security-Policy "default-src 'self'; connect-src {env.GRAPHQL_ENDPOINT}; style-src 'self' 'sha256-xGV5EQQkhfzt8q6nGkoKAAVcmITvYwkeAwFuMJcSIKE='; font-src data:"
 
     handle_path /__/config.js {
         header Content-Type application/javascript
