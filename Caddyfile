@@ -38,7 +38,7 @@ http:// {
     handle_path /__/config.js {
         header Content-Type application/javascript
         header Cache-Control "private, no-cache, no-store, must-revalidate"
-        respond "window.GRAPHIQL_CONFIG = { graphqlEndpoint: '{env.GRAPHQL_ENDPOINT}' };"
+        respond "window.GRAPHIQL_CONFIG = { endpoint: '{env.GRAPHQL_ENDPOINT}' };"
     }
 
     handle {
