@@ -5,6 +5,7 @@ services:
       dockerfile: Dockerfile
     environment:
       GRAPHQL_ENDPOINT: "${GRAPHQL_ENDPOINT:-http://localhost:7200/graphql}"
+      GRAPHQL_HEADERS: "${GRAPHQL_HEADERS:-null}"
     volumes:
       - type: bind
         source: ./Caddyfile
