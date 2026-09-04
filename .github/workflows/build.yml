@@ -75,12 +75,12 @@ jobs:
         with:
           image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.build.outputs.digest }}
           scanners: vuln
-          pkg-types: os
           severity: CRITICAL
           ignore-unfixed: true
           exit-code: '1'
           format: table
         env:
+          TRIVY_PKG_TYPES: os
           TRIVY_USERNAME: ${{ github.actor }}
           TRIVY_PASSWORD: ${{ github.token }}
 
