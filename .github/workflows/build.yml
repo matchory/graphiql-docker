@@ -65,6 +65,26 @@ jobs:
           provenance: mode=max
           sbom: true
 
+      # Scans the image we just built, by digest. Only OS packages: the language
+      # dependencies in here are the same ones Dependabot already watches via the
+      # manifests, and double-reporting them is how a scanner becomes background
+      # noise. `ignore-unfixed` keeps the gate on things we can actually act on.
+      - name: Scan image for critical vulnerabilities
+        if: steps.build.outputs.digest != ''
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
+        with:
+          image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.build.outputs.digest }}
+          scanners: vuln
+          pkg-types: os
+          severity: CRITICAL
+          ignore-unfixed: true
+          exit-code: '1'
+          format: table
+        env:
+          TRIVY_USERNAME: ${{ github.actor }}
+          TRIVY_PASSWORD: ${{ github.token }}
+
+
       - name: Generate artifact attestation
         uses: actions/attest-build-provenance@v2
         with:
