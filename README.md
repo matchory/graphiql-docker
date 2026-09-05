@@ -13,6 +13,7 @@ To run the GraphiQL Docker image, you can use the following command:
 docker run \
       --port 8080:80 \
       --env GRAPHQL_ENDPOINT=http://localhost:4000/graphql \
+  --env 'GRAPHQL_HEADERS={"Authorization":"Bearer token","X-Tenant":"acme"}' \
   ghcr.io/matchory/graphiql
 ```
 
@@ -21,8 +22,17 @@ docker run \
 The following environment variables can be set to customize the GraphiQL instance:
 
 - `GRAPHQL_ENDPOINT`: The URL of the GraphQL endpoint to connect to. Default is `http://localhost:4000/graphql`.
+- `GRAPHQL_HEADERS`: A JSON object of headers sent with GraphQL requests. Default is `{}`.
 
-Yup, that's it for now. More to come. Have a suggestion for a configuration option? Create an issue.
+The same values can be passed through Docker Compose:
+
+```bash
+GRAPHQL_ENDPOINT=http://localhost:4000/graphql \
+GRAPHQL_HEADERS='{"Authorization":"Bearer token"}' \
+docker compose up
+```
+
+Have a suggestion for a configuration option? Create an issue.
 
 ## Contributing
 

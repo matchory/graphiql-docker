@@ -22,6 +22,7 @@ RUN --mount=type=cache,target=/root/.npm \
 FROM caddy:2-alpine
 WORKDIR /app
 ENV GRAPHQL_ENDPOINT=http://localhost:4000/graphql
+ENV GRAPHQL_HEADERS={}
 
 COPY --link --from=builder /build/dist ./dist
 COPY --link ./Caddyfile /etc/caddy/Caddyfile

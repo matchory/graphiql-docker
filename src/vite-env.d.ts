@@ -11,5 +11,6 @@ interface ImportMeta {
 interface Window {
     GRAPHIQL_CONFIG?: {
         endpoint: string;
+        headers: Record<string, string> | null;
     };
 }
